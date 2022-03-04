@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113308918315",
+    "project_id": "mylibrary-3dd4b",
+    "storage_bucket": "mylibrary-3dd4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113308918315:android:951fa534a7db2fb70d406e",
+        "android_client_info": {
+          "package_name": "com.anawajha.mylibrary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113308918315-1u1r75f5udu8ujlbdrvkadelj7vp8vt3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTppBo1nW1Q4TqETmPgVFWdE9kvCzBJRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113308918315-1u1r75f5udu8ujlbdrvkadelj7vp8vt3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
