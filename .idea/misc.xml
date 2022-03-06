@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.1475" />
+        <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1475" />
         <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/drawable/fab_background.xml" value="0.1" />
+        <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/drawable/ic_add.xml" value="0.1475" />
         <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/layout/activity_add_book.xml" value="0.2129115006412997" />
         <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/layout/activity_edit_book.xml" value="0.2" />
         <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/layout/book_item.xml" value="0.264" />
+        <entry key="..\:/IUG3.2/Cloud computing lab/MyLibrary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1475" />
       </map>
     </option>
   </component>

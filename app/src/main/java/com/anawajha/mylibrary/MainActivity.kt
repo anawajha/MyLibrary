@@ -35,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         getBooks()
     }
 
-    fun getBooks(){
+    // realtime
+    private fun getBooks(){
         fire.collection("Books").addSnapshotListener { value, error ->
             error.let {
                 return@let
             }
-
             value.let {
                 value?.documentChanges!!.forEach { dc ->
                     if (dc.type == DocumentChange.Type.ADDED){
