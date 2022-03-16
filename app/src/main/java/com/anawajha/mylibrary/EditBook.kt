@@ -1,17 +1,21 @@
 package com.anawajha.mylibrary
 
 import android.R
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.anawajha.mylibrary.databinding.ActivityEditBookBinding
 import com.anawajha.mylibrary.firebase.FirestoreOperations
 import com.anawajha.mylibrary.helpers.Helpers
 import com.anawajha.mylibrary.helpers.Helpers.Companion.getDate
+import com.anawajha.mylibrary.helpers.Utilities
 import com.anawajha.mylibrary.model.Book
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -19,15 +23,19 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storageMetadata
 import io.grpc.InternalChannelz.id
 import java.util.*
 
 class EditBook : AppCompatActivity() {
+    private var imagePath: String? = null
     lateinit var binding:ActivityEditBookBinding
     lateinit var fire:FirebaseFirestore
     var book:Book? = null
     var path:String? = null
     var timestamp:Timestamp? = null
+    private val TAG = "Books"
+    var imageUri:Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +56,8 @@ class EditBook : AppCompatActivity() {
                         binding.edBookYear.setText(getDate(book?.year!!.seconds))
                         binding.edPrice.setText(book?.price.toString())
                         binding.ratingBar.rating = book?.rate!!.toFloat()
+                        binding.edImagePath.setText(book?.image.toString())
+                        imagePath = book?.imagePath
                     }
             }// getSingleBookWithId
 
@@ -57,12 +67,13 @@ class EditBook : AppCompatActivity() {
                     timestamp = book!!.year!!
                 }
                 FirestoreOperations.updateBook(path!!, Book(null,binding.edBookName.text.toString(),
-                    binding.edBookAuthor.text.toString(),timestamp,binding.edPrice.text.toString().toDouble(),binding.ratingBar.rating),this)            }
+                    binding.edBookAuthor.text.toString(),timestamp,binding.edPrice.text.toString().toDouble(),binding.ratingBar.rating, imagePath = imagePath),this,imageUri)
+            }
         }
 
         binding.btnDelete.setOnClickListener {
-            if (path != null)
-                FirestoreOperations.deleteBook(this,path!!)
+            if (path != null && imagePath != null)
+                FirestoreOperations.deleteBook(this,path!!, imagePath!!)
         }
 
         binding.edBookYear.setOnClickListener {
@@ -79,6 +90,34 @@ class EditBook : AppCompatActivity() {
                 date.get(Calendar.DAY_OF_MONTH))
             piker.show()
         }
+
+
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // There are no request codes
+                    val intent: Intent? = result.data
+                    val uri = intent?.data  //The uri with the location of the file
+                    Log.d(TAG, "${uri.toString()}")
+                    val file = Utilities.getFile(applicationContext, uri!!)
+                    var new_uri = Uri.fromFile(file)
+                    Log.d(TAG, "${new_uri.toString()}")
+                    binding.edImagePath.setText(new_uri.lastPathSegment)
+
+                    var metadata = storageMetadata {
+                        contentType = "image/jpg"
+                    }
+                    imageUri = new_uri
+                }
+            }
+
+        binding.edImagePath.setOnClickListener { ed ->
+            val intent = Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT)
+            resultLauncher.launch(Intent.createChooser(intent, "Select an image"))
+        }
+
         /**
          * realtime
                 fire.collection("Books").whereEqualTo("id",id).addSnapshotListener { value, error ->
@@ -104,7 +143,7 @@ class EditBook : AppCompatActivity() {
                     if (binding.edPrice.text as Double == book!!.price){
                         if (binding.ratingBar.rating == book!!.rate){
                             FirestoreOperations.updateBook(path!!, Book(null,binding.edBookName.text.toString(),
-                                binding.edBookAuthor.text.toString(),timestamp,binding.edPrice.text as Double,binding.ratingBar.rating),this)
+                                binding.edBookAuthor.text.toString(),timestamp,binding.edPrice.text as Double,binding.ratingBar.rating),this,imageUri!!)
                         }
                     }
                 }

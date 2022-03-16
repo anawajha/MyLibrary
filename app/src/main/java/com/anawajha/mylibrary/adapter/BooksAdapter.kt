@@ -8,13 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anawajha.mylibrary.EditBook
+import com.anawajha.mylibrary.R
 import com.anawajha.mylibrary.databinding.BookItemBinding
 import com.anawajha.mylibrary.helpers.Helpers.Companion.getDate
 import com.anawajha.mylibrary.model.Book
+import com.squareup.picasso.Picasso
 
 class BooksAdapter(val context: Context, val books: ArrayList<Book>) :RecyclerView.Adapter<BooksAdapter.BooksViewHolder>(){
     class BooksViewHolder(binding:BookItemBinding) :RecyclerView.ViewHolder(binding.root) {
-        var id = binding.tvId
+        var cover = binding.imgBookCover
         var name = binding.tvBookName
         var author = binding.tvBookAuthor
         var year = binding.tvBookLaunchYear
@@ -31,7 +33,9 @@ class BooksAdapter(val context: Context, val books: ArrayList<Book>) :RecyclerVi
     }
 
     override fun onBindViewHolder(holder: BooksViewHolder, position: Int) {
-        holder.id.text = "${position +1}"
+       // holder.id.text = "${position +1}"
+        Picasso.get().load(books[position].image.toString()).placeholder(R.drawable.ic_image_grey).into(holder.cover)
+//        Log.d("Books","Book url :${books[position].image}")
         holder.name.text = books[position].name
         holder.author.text = books[position].author
         holder.year.text = getDate(books[position].year!!.seconds)

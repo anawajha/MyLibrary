@@ -87,6 +87,28 @@
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_imagePath"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Upload book cover">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_imagePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:keyboardNavigationCluster="false"
+            android:drawableEnd="@drawable/ic_image"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/rating_bar"
         android:layout_width="wrap_content"
@@ -94,7 +116,7 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:numStars="5"
-        android:rating="4.5"
+        android:rating="3.5"
         android:stepSize="0.5" />
 
     <Button

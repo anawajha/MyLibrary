@@ -15,15 +15,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/tv_id"
+        <ImageView
+            android:id="@+id/img_book_cover"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="1"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="27sp"
-            android:textStyle="bold"
+            android:scaleType="centerInside"
+            android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +34,7 @@
             tools:viewBindingIgnore="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_id"
+            app:layout_constraintStart_toEndOf="@id/img_book_cover"
             android:layout_marginStart="15dp">
 
             <TextView
